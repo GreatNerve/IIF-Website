@@ -1,162 +1,300 @@
 // Section 6,7, 8
 
 // Do not modify the below following code
-class Achivement {
-  constructor(data = null, target = "#achivements") {
-    this.Target = target;
-    if (data) {
-      this.Data = data;
-    } else {
-      this.Data = [
+/**
+ * Represents a class for managing achievements.
+ * @class
+ */
+class OurAchievements {
+  /**
+   * Creates an instance of OurAchievements.
+   * @param {Array} data - JSON Objects of Achievements List containing icon, count, and title in Dictionary format.
+   * @param {String} target - Id of the target element.
+   */
+  constructor(data = null, target = "OA-List") {
+    if (data === null) {
+      this.data = [
         {
-          title: "Startups Incubated",
-          value: 10,
-          description: "Startups Incubated",
-          icon: "https://img.freepik.com/premium-vector/business-incubator-businesspeople-investors-supporting-new-businesses-money-professional-assistance-start-up-project-flat-vector-illustration_277904-23829.jpg?w=740",
+          icon: "fa-solid fa-rocket",
+          count: 50,
+          title: "Startup Incubated",
         },
         {
-          title: "Entrepreneurs Engaged",
-          value: 10,
-          description: "Entrepreneurs Engaged",
-          icon: "https://previews.123rf.com/images/bilahstudio/bilahstudio2102/bilahstudio210200292/175360238-business-graphic-vector-creative-illustration-entrepreneurs-engaged-in-teamwork-building-business.jpg",
+          icon: "fa-solid fa-user",
+          count: 500,
+          title: "Entrepreneur Engaged",
         },
         {
-          title: "Funds",
-          value: 10,
-          description: "Funds Provided to Startups",
-          icon: "https://cdn.fundsindia.com/prelogin/slideshow/welcome-to-fundsindia.webp",
+          icon: "fas fa-hand-holding-usd",
+          count: "10Cr",
+          title: "Fund Raised",
         },
         {
-          title: "Jobs Created",
-          value: 10,
-          description: "Jobs Created by Startups Incubated",
-          icon: "https://i.pinimg.com/736x/59/89/b1/5989b169e93d36c18b1db3064349135f.jpg",
+          icon: "fa-solid fa-bullseye",
+          count: "10k",
+          title: "Job Created",
         },
         {
+          icon: "fa-solid fa-graduation-cap",
+          count: "500",
           title: "Graduated",
-          value: 10,
-          description: "Graduated from Incubation Program",
-          icon: "https://www.freeiconspng.com/uploads/graduation-icon-9.png",
         },
         {
+          icon: "fa-solid fa-arrow-up-right-dots",
+          count: "100Cr",
           title: "Valuation",
-          value: 10,
-          description: "Valuation of Startups Incubated",
-          icon: "https://info.sapphirecapitalpartners.co.uk/hubfs/Blog_Photos/shutterstock_503293813.jpg",
         },
       ];
-    }
-  }
-
-  setData(elem) {
-    let content = `
-          <a class="col achivlink"  href="/achivment/${elem.title}">
-          <div class="card achiv-card">
-              <img src="${elem.icon}"
-                  class="card-img-top" alt="${elem.title}">
-              <div class="card-body">
-                  <h5 class="card-title text-uppercase text-wrap">${elem.title}</h5>
-                  <p class="card-text text-wrap">${elem.description}</p>
-  
-              </div>
-          </div>
-  
-      </a>`;
-    $(this.Target).append(content);
-  }
-}
-
-class LatestEvent {
-  constructor(data = null, target = "#eventList") {
-    this.Target = target;
-    if (data) {
-      this.Data = data;
     } else {
-      this.Data = [
-        {
-          id: 1,
-          title: "Event 1",
-          description: "Event 1 Description",
-          date: "2023-10-30",
-          image: "https://nsutiif.in/img/event/event3.png",
-        },
-        {
-          id: 2,
-          title: "Event 2",
-          description: "Event 2 Description",
-          date: "2023-10-30",
-          image: "https://nsutiif.in/img/event/event3.png",
-        },
-        {
-          id: 3,
-          title: "Event 3",
-          description: "Event 3 Description",
-          date: "2023-10-30",
-          image: "https://nsutiif.in/img/event/event3.png",
-        },
-        {
-          id: 4,
-          title: "Event 4",
-          description: "Event 4 Description",
-          date: "2023-10-30",
-          image: "https://nsutiif.in/img/event/event3.png",
-        },
-        {
-          id: 5,
-          title: "Event 5",
-          description: "Event 5 Description ",
-          date: "2023-10-30",
-          image: "https://nsutiif.in/img/event/event3.png",
-        },
-        {
-          id: 6,
-          title: "Event 6",
-          description: "Event 6 Description",
-          date: "2023-10-30",
-          image: "https://nsutiif.in/img/event/event3.png",
-        },
-      ];
+      this.data = data;
     }
+    this.target = target;
   }
-  setData(elem) {
-    let date = new Date(elem.date);
-    let content = `<div class="ev-sudo">
-          <div class="card ev-cd m-2 border-0 p-0">
-          <a href=  "/event?${
-            elem.id
-          }" class="position-relative text-decoration-none text-light">
-            <div class="position-absolute bg-secondary p-1 date">
-              <div class="date-day">${date.getDate()}</div>
-              <div class="date-month">${date.toLocaleString("default", {
-                month: "short",
-              })}</div>
-              <div class="date-year">${date.getFullYear()}</div>
+
+  /**
+   * Adds an achievement to the target element.
+   * @param {JSON} elem - JSON Object of Achievement containing icon, count, and title.
+   * @returns {void}
+   * @example
+   * let OA = new OurAchievements();
+   * OA.addAchievement({
+   *   icon: "fa-solid fa-rocket",
+   *   count: 50,
+   *   title: "Startup Incubated",
+   * });
+   */
+  addElements(elem = null) {
+    if (elem === null) {
+      elem = this.data;
+    } else {
+      if (!Array.isArray(elem)) {
+        elem = [elem];
+      } else if (Object.prototype.toString.call(elem) === "[object Object]") {
+        elem = this.data;
+      }
+    }
+
+    for (let i = 0; i < elem.length; i++) {
+      let target = document.getElementById(this.target);
+      let div = document.createElement("div");
+      div.classList.add("OA-items");
+      div.innerHTML = `
+        <div class="OA-items">
+          <div class="OA-items-logo flext-center">
+            <i class="flext-center ${elem[i].icon}"></i>
+          </div>
+          <div class="OA-items-data">
+            <div class="OA-items-data-num">
+              <span>${elem[i].count}</span>+
             </div>
-            <img
-              src="${elem.image}"
-              alt="${elem.title}"
-              class="card-img-top ev-cd-img"
-            />
-          </a>
-          <div class="card-body pb-1">
-            <a
-              href="/event?${elem.id}"
-              class="card-title my-1 text-dark text-capitalize font-weight-bold text-decoration-none h5"
-              >${elem.title}</a
-            >
-            <p class="card-text my-2">
-              ${elem.description}
-            </p>
-            <a href="/event?${elem.id}" class="btn btn-secondary my-3"
-              >Read More <i class="fa-solid fa-arrow-right"></i
-            ></a>
+            <div class="OA-items-data-text">
+              <span>${elem[i].title}</span>
+            </div>
           </div>
         </div>
-          </div>`;
-    $(this.Target).append(content);
+      `;
+      target.appendChild(div);
+    }
   }
 }
 
+/**
+ * Represents a class for managing Latest Events.
+ * @class
+ */
+class LatestEvents {
+  /**
+   * Creates an instance of LatestEvents.
+   * @param {JSON} data - JSON Object of Latest Events containing img, title, date, and desc.
+   * @param {String} target - Id of the target element.
+   */
+
+  constructor(data = null, target = "LE-List") {
+    if (data === null) {
+      this.data = [
+        {
+          img: "https://nsutiif.in/img/gallery/1.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/2.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/3.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/4.JPG",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/5.JPG",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/3.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/4.JPG",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/1.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/2.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/5.JPG",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/3.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/4.JPG",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/1.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+        {
+          img: "https://nsutiif.in/img/gallery/2.jpeg",
+          title: "Startup Incubated",
+          date: "10/10/2021",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+        },
+      ];
+    } else {
+      this.data = data;
+    }
+    this.target = target;
+  }
+
+  /**
+   * Adds an Latest Events to the target element.
+   * @param {JSON} elem - JSON Object of Latest Events containing img, count, title, date and desc.
+   * @returns {void}
+   * @example
+   * let LE = new LatestEvents();
+   * LE.addAchievement({
+   *   img: "https://nsutiif.in/img/gallery/2.jpeg",
+   *   title: "Startup Incubated",
+   *   date: "10/10/2021",
+   *   desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, voluptatum.",
+   * });
+   */
+  addElements(elem = null) {
+    if (elem === null) {
+      elem = this.data;
+    } else {
+      if (!Array.isArray(elem)) {
+        elem = [elem];
+      } else if (Object.prototype.toString.call(elem) === "[object Object]") {
+        elem = this.data;
+      }
+    }
+    console.log(elem);
+    for (let i = 0; i < elem.length; i++) {
+      let target = document.getElementById(this.target);
+      let div = document.createElement("div");
+      div.classList.add("LE-slider-items");
+      div.innerHTML = `
+      <div class="LE-items-contens">
+        <img src="${elem[i].img}" alt="" />
+        <div class="LE-text">
+          <h3>${elem[i].title}</h3>
+          <p>
+            ${elem[i].desc}
+          </p>
+        </div>
+      </div>
+      `;
+      target.appendChild(div);
+    }
+  }
+
+  /**
+   * Adds an sliding effect to Latest Events section.
+   * @param {Number} delay - Delay in milliseconds.
+   * @returns {void}
+   * @example
+   * let LE = new LatestEvents();
+   * LE.setSlider(1000);
+   */
+  setSlider(delay = 5000) {
+    setInterval(() => {
+      let LE_List = $(".LE-slider-items");
+      let elem = LE_List[0];
+      LE_List[0].remove();
+      let target = document.getElementById(this.target).append(elem);
+    }, delay);
+  }
+}
+
+$(document).ready(function () {
+  // Initialize the OurAchievements Class
+  let OA = new OurAchievements();
+  // Clear the hard Achievements List
+  $("#OA-List").empty();
+  // Adding the Achievements to the target element
+  OA.addElements();
+
+  // Initialize the LatestEvents Class
+  let LE = new LatestEvents();
+  // Clear the hard Latest Events List
+  $("#LE-List").empty();
+  // Adding the Latest Events to the target element
+  LE.addElements();
+  // Adding the sliding effect to Latest Events section
+  LE.setSlider();
+});
+
+
+
+
+
+
+
+
+
+// function scrollright(){
+//   let LE_List = $('.LE-slider-items');
+//     let elem = LE_List[LE_List.length-1];
+//     $('#LE-List').prepend(elem);
+// } 
 class SuccessStory {
   constructor(data = null, target = "#successStory") {
     this.Target = target;
@@ -239,17 +377,21 @@ class SuccessStory {
 $(document).ready(function () {
   // Push the data from here using data argument to pass json data
 
-  let achivements = new Achivement();
-  $("#achivements").empty();
-  achivements.Data.forEach(function (elem) {
-    achivements.setData(elem);
-  });
-  let latestEvent = new LatestEvent();
-  $("#eventList").empty();
-  latestEvent.Data.forEach(function (elem) {
-    latestEvent.setData(elem);
-  });
-
+    // Initialize the OurAchievements Class
+    let OA = new OurAchievements();
+    // Clear the hard Achievements List
+    $("#OA-List").empty();
+    // Adding the Achievements to the target element
+    OA.addElements();
+  
+    // Initialize the LatestEvents Class
+    let LE = new LatestEvents();
+    // Clear the hard Latest Events List
+    $("#LE-List").empty();
+    // Adding the Latest Events to the target element
+    LE.addElements();
+    // Adding the sliding effect to Latest Events section
+    LE.setSlider();
   let successStory = new SuccessStory();
   $("#successStory").empty();
   successStory.Data.forEach(function (elem) {
