@@ -392,7 +392,26 @@ class SuccessStories {
     this.pos = 0;
 
     document.getElementById("SSS-add").addEventListener("click", (e) => {
-      this.addElements();
+      let arrow = document.querySelector("#SSS-add>i");
+      let no = 0;
+      if (arrow.classList.contains("fa-angle-down")) {
+        this.addElements();
+      } else {
+        let target = document.getElementById(this.target);
+        let window_width = $(window).width();
+        if (window_width > 895) {
+          no = 4;
+        } else {
+          no = 2;
+        }
+        let pos = target.childElementCount
+        for (let i = no; i < pos; i++) {
+          target.removeChild(target.lastChild);
+          this.pos -= 1;
+        }
+        arrow.classList.remove("fa-angle-up");
+        arrow.classList.add("fa-angle-down");
+      }
     });
   }
 
@@ -431,6 +450,11 @@ class SuccessStories {
 
     // console.log(elem);
     let current_pos = this.pos;
+    if ((current_pos+no) >= elem.length) {
+      let arrow = document.querySelector("#SSS-add>i");
+      arrow.classList.remove("fa-angle-down");
+      arrow.classList.add("fa-angle-up");
+    }
     for (
       let i = current_pos;
       i < Math.min(current_pos + no, elem.length);
@@ -455,7 +479,7 @@ class SuccessStories {
       target.appendChild(div);
       this.pos += 1;
     }
-  }
+}
 }
 
 $(document).ready(function () {
